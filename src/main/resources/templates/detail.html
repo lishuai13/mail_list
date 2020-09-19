@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>详情</title>
+    <link rel="icon" th:href="@{/image/logo.ico}" type="image/x-icon" />
+</head>
+<body>
+<div class="row-fluid">
+    <div class="span12">
+        <h1>详细信息</h1>
+    </div>
+</div>
+<hr>
+<div id="conts1" class="conts">
+    <div class="row-fluid">
+        <div class="span12">
+            <form style="padding: 10px">
+                学号：<input type="text" name="studentNumber" th:value="${studentVO.studentNumber}" ><br><br>
+                姓名：<input type="text" name="studentName" th:value="${studentVO.studentName}"  ><br><br>
+                电话：<input type="text" name="studentTele" th:value="${studentVO.studentTele}" ><br><br>
+                邮箱：<input type="text" name="studentEmail" th:value="${studentVO.studentEmail}" ><br><br>
+                专业：<input type="text" name="specialitiesId" th:value="${studentVO.specialities}"><br><br>
+                年届：<input type="text" name="grade" th:value="${studentVO.grade}"><br><br>
+                班级：<input type="text" name="classes" th:value="${studentVO.classes}"><br><br>
+                城市：<input type="text" name="city" th:value="${studentVO.city}"><br><br>
+                公司：<input type="text" name="company" th:value="${studentVO.company}"><br><br>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

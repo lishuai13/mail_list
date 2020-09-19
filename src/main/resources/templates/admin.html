@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员</title>
+    <link rel="icon" th:href="@{/image/logo.ico}" type="image/x-icon" />
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <h1>审批</h1>
+        </div>
+    </div>
+    <hr>
+    <div class="row-fluid">
+        <div class="span12">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>学号</th>
+                    <th>姓名</th>
+                    <th>电话</th>
+                    <th>邮箱</th>
+                    <th>专业</th>
+                    <th>年届</th>
+                    <th>班级</th>
+                    <th>城市</th>
+                    <th>公司</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="studentVO:${pageInfo}">
+                    <td><label>
+                        <input style="width: 50px" type="checkbox" th:value="${studentVO.studentId}" name="studentId"/>
+                    </label></td>
+                    <td th:text="${studentVO.studentNumber}"></td>
+                    <td th:text="${studentVO.studentName}"></td>
+                    <td th:text="${studentVO.studentTele}"></td>
+                    <td th:text="${studentVO.studentEmail}"></td>
+                    <td th:text="${studentVO.specialities}"></td>
+                    <td th:text="${studentVO.grade}"></td>
+                    <td th:text="${studentVO.classes}"></td>
+                    <td th:text="${studentVO.city}"></td>
+                    <td th:text="${studentVO.company}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="button" class="btn" onclick="adopt()">通过</button>
+                    <button type="button" class="btn" onclick="reject()">拒绝</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    //通过
+    function adopt() {
+        var str1 = [];
+        var str = document.getElementsByName("studentId");
+        for (var i = 0; i < str.length; i++) {
+            if (str[i].checked)
+                str1.push(str[i].value);
+        }
+        if (str1.length === 0)
+            alert("请先选中");
+        else {
+            var mymessage=confirm("确认通过吗？");
+            if(mymessage===true)
+            {
+                $.ajax({
+                    async: true,
+                    dataType: 'json',
+                    type: "POST",
+                    url: '/adopt',
+                    data: {"studentIds": str1},
+                    traditional: true,  //这里设置为true
+                    success: function (result) {
+                        alert(result);
+                        window.location.reload();
+                    }
+                });
+            }
+        }
+    }
+
+    //拒绝
+    function reject() {
+        var str1 = [];
+        var str = document.getElementsByName("studentId");
+        for (var i = 0; i < str.length; i++) {
+            if (str[i].checked)
+                str1.push(str[i].value);
+        }
+        if (str1.length === 0)
+            alert("请先选中");
+        else {
+            var mymessage=confirm("确认拒绝吗？");
+            if(mymessage===true)
+            {
+                $.ajax({
+                    async: true,
+                    dataType: 'json',
+                    type: "POST",
+                    url: '/reject',
+                    data: {"studentIds": str1},
+                    traditional: true,  //这里设置为true
+                    success: function (result) {
+                        alert(result);
+                        window.location.reload();
+                    }
+                });
+            }
+        }
+    }
+</script>
+<script type="text/javascript"  th:src="@{/js/jquery-3.2.1.min.js}"></script>
+</html>

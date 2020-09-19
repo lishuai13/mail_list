@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" th:href="@{/image/logo.ico}" type="image/x-icon" />
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .zhuxiao,
+        .id {
+            float: right;
+            padding: 10px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row-fluid" >
+        <div class="span12">
+            <div class="txl">
+                <h1>计算机系通讯录</h1>
+            </div>
+            <div class="zhuxiao">
+                <a class="item" th:href="@{/logout}">注销</a>
+            </div>
+            <div class="id">
+                <a th:text="${studentNumber}" th:href="@{/myself(studentNumber=${studentNumber})}"></a>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!--    搜索表单-->
+    <div class="row-fluid">
+        <div class="span12">
+            <form class="form-horizontal" action="/selectStudent" method="post">
+                <div class="control-group">
+                    <div class="controls">
+                        学号:<input type="text" name="studentNumber">&emsp;
+                        姓名:<input type="text" name="studentName">&emsp;
+                    </div>
+                </div>
+                <br>
+                <div class="control-group">
+                    <div class="controls">
+                        专业:<select name="specialitiesId" >
+                                <option value="" selected></option>
+                                <option value="1" >软件工程</option>
+                                <option value="2">网络工程</option>
+                                <option value="3">可视化技术</option>
+                                <option value="4">卓越班</option>
+                            </select>
+                        班级:<select name="classes" >
+                                <option value="" selected></option>
+                                <option value="1" >一班</option>
+                                <option value="2">二班</option>
+                                <option value="3">三班</option>
+                                <option value="4">四班</option>
+                                <option value="5">五班</option>
+                            </select>
+                        年届:<select name="grade" >
+                                <option value="" selected></option>
+                                <option value="2017">2017届</option>
+                                <option value="2018">2018届</option>
+                                <option value="2019">2019届</option>
+                                <option value="2020">2020届</option>
+                            </select>
+                    </div>
+                </div>
+                <br>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn">查询</button>
+                        <button type="reset" class="btn">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <br>
+<!--    表格-->
+    <div class="row-fluid">
+        <div class="span12">
+            <table class="table table-hover table-bordered" id="materialTable">
+                <thead>
+                <tr>
+                    <th>
+                        学号
+                    </th>
+                    <th>
+                        姓名
+                    </th>
+                    <th>
+                        电话
+                    </th>
+                    <th>
+                        邮箱
+                    </th>
+                    <th>
+                        详细信息
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                        <tr th:each="student:${pageInfo.list}">
+                            <td th:text="${student.studentNumber}"></td>
+                            <td th:text="${student.studentName}"></td>
+                            <td th:text="${student.studentTele}"></td>
+                            <td th:text="${student.studentEmail}"></td>
+                            <td><a th:href="@{/detail(studentId=${student.studentId})}">详情</a></td>
+                        </tr>
+<!--                </c:if>-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <hr>
+<!--    页码-->
+    <div class="row-fluid" >
+        <div class="span12" style="text-align: center">
+            <div class="pagination pagination-centered pagination-large" style="width:100%">
+                <p>当前第 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span th:text="${pageInfo.total}"></span> 条记录</p>
+                <a th:href="@{/init}">首页</a>
+                <a th:href="@{/init(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a>
+                <a th:href="@{/init(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+                <a th:href="@{/init(pageNum=${pageInfo.pages})}">尾页</a>
+            </div>
+        </div>
+    </div>-
+</div>
+<script type="text/javascript"  th:src="@{/js/jquery-3.2.1.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="icon" href="/image/logo.ico" type="image/x-icon" />
+</head>
+<body>
+<div class="row-fluid">
+    <div class="span12">
+        <h1>注册</h1>
+    </div>
+</div>
+<hr>
+<div id="conts1" class="conts">
+    <div class="row-fluid">
+        <div class="span12">
+            <form style="padding: 10px">
+                学号：<input type="text" name="studentNumber" id="studentNumber" required><br><br>
+                密码：<input type="text" name="password" id="password" required><br><br>
+                姓名：<input type="text" name="studentName" id="studentName" required><br><br>
+                电话：<input type="text" name="studentTele" id="studentTele" required><br><br>
+                邮箱：<input type="text" name="studentEmail" id="studentEmail" required><br><br>
+                专业：<select name="specialitiesId" id="specialitiesId" required>
+                        <option value="1" selected>软件工程</option>
+                        <option value="2">网络工程</option>
+                        <option value="3">可视化技术</option>
+                        <option value="4">卓越班</option>
+                    </select><br><br>
+                年届：<select name="grade" id="grade" required>
+                        <option value="2017">2017届</option>
+                        <option value="2018">2018届</option>
+                        <option value="2019">2019届</option>
+                        <option value="2020" selected>2020届</option>
+                    </select><br><br>
+                班级：<select name="classes" id="classes" required>
+                        <option value="1" selected>一班</option>
+                        <option value="2">二班</option>
+                        <option value="3">三班</option>
+                        <option value="4">四班</option>
+                        <option value="5">五班</option>
+                    </select><br><br>
+                城市：<input type="text" name="city" id="city"><br><br>
+                公司：<input type="text" name="company" id="company"><br><br>
+            </form>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="button" onclick="register()" class="btn">注册</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script>
+    function register() {
+        $.ajax({
+            async: true,
+            dataType: 'json',
+            type: "POST",
+            url: '/register',
+            data: {
+                "studentNumber": document.getElementById("studentNumber").value,
+                "password": document.getElementById("password").value,
+                "studentName": document.getElementById("studentName").value,
+                "studentTele": document.getElementById("studentTele").value,
+                "studentEmail": document.getElementById("studentEmail").value,
+                "specialitiesId": document.getElementById("specialitiesId").value,
+                "grade": document.getElementById("grade").value,
+                "classes": document.getElementById("classes").value,
+                "city": document.getElementById("city").value,
+                "company": document.getElementById("company").value
+            },
+            traditional: true,
+            success: function (result) {
+                alert(result);
+            },
+            error: function (result) {
+                alert(result.responseText);
+            }
+        });
+    }
+</script>
+<script type="text/javascript"  src="js/jquery-3.2.1.min.js"></script>
+</html>

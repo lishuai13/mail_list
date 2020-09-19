@@ -1,0 +1,26 @@
+#application.yml
+spring:
+  datasource:
+    username: root
+    password: 143188
+    url: jdbc:mysql://localhost:3306/mail_list?serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mappers/*.xml #XML文件地址
+  type-aliases-package: com.lishuai.entity  #映射实体类地址
+  configuration:
+    #开启自动下划线格式转驼峰格式
+    map-underscore-to-camel-case: true
+
+#配置分页插件pagehelper
+pagehelper:
+  helperDialect: mysql  #数据库链接
+  reasonable: true  #分页合理化参数，默认值为false。当该参数设置为 true 时，pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页。默认false 时，直接根据参数进行查询。
+  supportMethodsArguments: true #支持通过 Mapper 接口参数来传递分页参数
+  params: count=countSql  #为了支持startPage(Object params)方法，增加了该参数来配置参数映射，用于从对象中根据属性名取值，
+
+#sql日志
+logging:
+  level:
+    com.lishuai.mapper: debug

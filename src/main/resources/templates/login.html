@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="icon" href="/image/logo.ico" type="image/x-icon" />
+</head>
+<body>
+<div class="row-fluid">
+    <div class="span12">
+        <h1>登录</h1>
+    </div>
+</div>
+<hr>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <form class="form-horizontal" method="post">
+                <div class="control-group">
+                    <div class="controls">
+                        学号:<input name="studentNumber" id="studentNumber" type="text" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        密码:<input name="password" id="password" type="text" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="button" onclick="goLogin()" class="btn">登陆</button>
+                        <a href="/goRegister">注册</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function goLogin() {
+        $.ajax({
+            async: true,
+            dataType: 'json',
+            type: "POST",
+            url: '/login',
+            data: {
+                "studentNumber": document.getElementById("studentNumber").value,
+                "password": document.getElementById("password").value
+            },
+            traditional: true,
+            success: function (result) {
+                if (result)
+                    window.location.href = '/init';
+                else
+                    alert("登录失败！密码错误或用户不存在")
+            }
+        });
+    }
+</script>
+<script type="text/javascript"  src="js/jquery-3.2.1.min.js"></script>
+</html>
